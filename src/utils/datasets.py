@@ -36,7 +36,7 @@ class DataManager(object):
         elif self.dataset_name == 'fer2013':
             ground_truth_data = self._load_fer2013()
         elif self.dataset_name == 'mask-fer2013':
-            ground_truth_data = self._load_fer2013()
+            ground_truth_data = self._load_mask_fer2013()
         elif self.dataset_name == 'KDEF':
             ground_truth_data = self._load_KDEF()
         return ground_truth_data
@@ -64,6 +64,22 @@ class DataManager(object):
     def _load_fer2013(self):
         data = pd.read_csv(self.dataset_path)
         pixels = data['pixels'].tolist()
+        width, height = 48, 48
+        faces = []
+        for pixel_sequence in pixels:
+            face = [int(pixel) for pixel in pixel_sequence.split(' ')]
+            face = np.asarray(face).reshape(width, height)
+            face = cv2.resize(face.astype('uint8'), self.image_size)
+            faces.append(face.astype('float32'))
+        faces = np.asarray(faces)
+        faces = np.expand_dims(faces, -1)
+        emotions = pd.get_dummies(data['emotion']).as_matrix()
+        return faces, emotions
+
+    def _load_mask_fer2013(self):
+        data = pd.read_csv(self.dataset_path)
+        # pixels = data['pixels'].tolist()
+        pixels = data.iloc[:, 2]
         width, height = 48, 48
         faces = []
         for pixel_sequence in pixels:

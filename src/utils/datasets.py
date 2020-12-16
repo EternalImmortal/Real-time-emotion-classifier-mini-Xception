@@ -33,7 +33,7 @@ class DataManager(object):
     def get_data(self):
         if self.dataset_name == 'imdb':
             ground_truth_data = self._load_imdb()
-        elif self.dataset_name == 'fer2013'
+        elif self.dataset_name == 'fer2013':
             ground_truth_data = self._load_fer2013()
         elif self.dataset_name == 'mask-fer2013':
             ground_truth_data = self._load_fer2013()

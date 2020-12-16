@@ -9,6 +9,7 @@ import cv2
 class DataManager(object):
     """Class for loading fer2013 emotion classification dataset or
         imdb gender classification dataset."""
+
     def __init__(self, dataset_name='imdb',
                  dataset_path=None, image_size=(48, 48)):
 
@@ -21,18 +22,20 @@ class DataManager(object):
             self.dataset_path = '../datasets/imdb_crop/imdb.mat'
         elif self.dataset_name == 'fer2013':
             self.dataset_path = '../datasets/fer2013/fer2013.csv'
-        elif self.dataset_name =='mask-fer2013':
+        elif self.dataset_name == 'mask-fer2013':
             self.dataset_path = '/home/renjie/dataset/FER2013/masked_fer2013.csv'
         elif self.dataset_name == 'KDEF':
             self.dataset_path = '../datasets/KDEF/'
         else:
             raise Exception(
-                    'Incorrect dataset name, please input imdb or fer2013')
+                'Incorrect dataset name, please input imdb or fer2013')
 
     def get_data(self):
         if self.dataset_name == 'imdb':
             ground_truth_data = self._load_imdb()
-        elif self.dataset_name == 'fer2013':
+        elif self.dataset_name == 'fer2013'
+            ground_truth_data = self._load_fer2013()
+        elif self.dataset_name == 'mask-fer2013':
             ground_truth_data = self._load_fer2013()
         elif self.dataset_name == 'KDEF':
             ground_truth_data = self._load_KDEF()
@@ -141,7 +144,7 @@ def split_imdb_data(ground_truth_data, validation_split=.2, do_shuffle=False):
 
 def split_data(x, y, validation_split=.2):
     num_samples = len(x)
-    num_train_samples = int((1 - validation_split)*num_samples)
+    num_train_samples = int((1 - validation_split) * num_samples)
     train_x = x[:num_train_samples]
     train_y = y[:num_train_samples]
     val_x = x[num_train_samples:]

@@ -11,6 +11,7 @@ from utils.inference import draw_bounding_box
 from utils.inference import apply_offsets
 from utils.inference import load_detection_model
 from utils.preprocessor import preprocess_input
+from PIL import Image
 
 # parameters for loading data and images
 detection_model_path = '../trained_models/detection_models/haarcascade_frontalface_default.xml'
@@ -48,14 +49,18 @@ while True:
             gray_face = cv2.resize(gray_face, (emotion_target_size))
         except:
             continue
+        # Image.fromarray(gray_face).show()
 
         gray_face = preprocess_input(gray_face, True)
         gray_face = np.expand_dims(gray_face, 0)
         gray_face = np.expand_dims(gray_face, -1)
+        # exit(gray_face.shape)
         emotion_prediction = emotion_classifier.predict(gray_face)
         emotion_probability = np.max(emotion_prediction)
         emotion_label_arg = np.argmax(emotion_prediction)
         emotion_text = emotion_labels[emotion_label_arg]
+        # mask_text = ' Mask = yes'
+        # emotion_text += mask_text
         emotion_window.append(emotion_text)
 
         if len(emotion_window) > frame_window:

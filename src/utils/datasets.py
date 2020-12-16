@@ -21,6 +21,8 @@ class DataManager(object):
             self.dataset_path = '../datasets/imdb_crop/imdb.mat'
         elif self.dataset_name == 'fer2013':
             self.dataset_path = '../datasets/fer2013/fer2013.csv'
+        elif self.dataset_name =='mask-fer2013':
+            self.dataset_path = '/home/renjie/dataset/FER2013/masked_fer2013.csv'
         elif self.dataset_name == 'KDEF':
             self.dataset_path = '../datasets/KDEF/'
         else:

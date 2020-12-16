@@ -42,7 +42,7 @@ model.compile(optimizer='adam', loss='categorical_crossentropy',
 model.summary()
 
 
-datasets = ['fer2013']
+datasets = ['mask-fer2013']
 for dataset_name in datasets:
     print('Training dataset:', dataset_name)
 
